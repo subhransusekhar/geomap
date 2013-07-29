@@ -96,6 +96,37 @@ function getCSVData() {
         }); 
     });
 }
+
+var sliderPlayTime = null; 
+var counterPlay = 1;
+
 $(document).ready(function() {
 	getCSVData();
+	$('span.play a').click(function(){
+		sliderPlayTime = setTimeout(function () {slidePlay();} , 1000);
+		return false;
+	});
+	
+	$('span.pause a').click(function(){
+		clearTimeout(sliderPlayTime);
+		return false;
+	});
+	
+	$('span.reset a').click(function(){
+		counterPlay = 1;
+		plotData(1);
+		$(".noUiSlider").val(1);
+		clearTimeout(sliderPlayTime);
+		return false;
+	});
 });
+
+function slidePlay() {
+	if(counterPlay < count && sliderPlayTime) {
+		console.log(counterPlay);
+		plotData(counterPlay);
+		$(".noUiSlider").val(counterPlay);
+		counterPlay ++;
+		sliderPlayTime = setTimeout(function () {slidePlay();} , 500);
+	}
+}
