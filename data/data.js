@@ -37,7 +37,8 @@ var stateCode = {
 };
 
 var stateData = {};
-
+var result = [];
+var count = 2;
 var csv_file = 'data/datafile1.csv';
 function setFocus(code) {
 	 $('#india-map').vectorMap('set', 'focus', code);
@@ -45,12 +46,8 @@ function setFocus(code) {
 function plotData(position) {
 	if(!position) position = 1;
 	$('#india-map').html('');
-	$.get(csv_file, function(data) {
-    	var stateData = {};
-        var csvcontent = $(data);
 		var label ='';
 		var column = '';
-        var result = $.csv.toArrays(data);
         $.each( result, function( key, value ) {
 			if(key == 0) {
 				label = value[0];
@@ -63,7 +60,6 @@ function plotData(position) {
 				stateData[state_code] = parseInt(value[position]);
 			}
         });
-        console.log(stateData);
         $('#india-map').vectorMap({
 			map : 'in_nic_en',
 	        series: {
@@ -80,19 +76,26 @@ function plotData(position) {
                 setFocus(code);
             }
 		});
+}
+
+function getCSVData() {
+	$.get(csv_file, function(data) {
+        result = $.csv.toArrays(data);
+        plotData(1);
+        count = result[0].length;
+        $(".noUiSlider").noUiSlider({
+            range: [1, count-1]
+           ,start: 1
+           ,handles: 1
+           ,step: 1
+           ,connect: "lower"
+    	   ,slide: function(){
+    		var value = $(this).val();
+    		plotData(value);
+    		}
+        }); 
     });
 }
 $(document).ready(function() {
-	$(".noUiSlider").noUiSlider({
-        range: [1, 5]
-       ,start: 1
-       ,handles: 1
-       ,step: 1
-       ,connect: "lower"
-	   ,slide: function(){
-		var value = $(this).val();
-		plotData(value);
-		}
-    }); 
-    plotData(1);
+	getCSVData();
 });
