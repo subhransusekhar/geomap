@@ -14,9 +14,6 @@ html, body{
 	bottom: 50px;
 	left: 5px;
 }
-.legend{
-	color: #FFF;
-}
 .control-buttons span a{
 	padding: 5px;
 }
@@ -49,4 +46,25 @@ html, body{
   display: block;
   float: left;
   cursor: pointer;
+}
+.scale-container div.min {
+	display: block;
+	float:left;
+}
+.scale-container {
+	background: #FFF;
+	overflow: hidden;
+	padding: 10px 0 10px 10px;
+	border: solid 1px #4C4C4C;
+}
+.scale-band {
+	display: block;
+	padding: 10px;
+	float: left;
+}
+.legend{
+  color: #222222;
+  clear: right;
+  border-bottom: solid 1px #4C4C4C;
+  margin: 0 0 10px 0;
 }

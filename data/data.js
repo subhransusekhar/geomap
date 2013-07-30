@@ -35,7 +35,12 @@ var stateCode = {
 		"Orissa" : "IN-OD",
 		"Kerala" : "IN-KL"		
 };
-
+var theme = {};
+theme['red'] = ['#FFFFFF', '#F78B8B', '#EB6D6D','#DF4B4B','#D03636', '#BA1F1F', '#A80F0F','#8E0101'];
+theme['blue'] = ['#FFFFFF', '#D2EFFC', '#ACDDF3','#79C0E0','#58A7CB', '#2F8FBA', '#1075A2','#005E89'];
+theme['green'] = ['#FFFFFF', '#D8FBD1', '#B5EDAA','#90D682','#6BBD5B', '#3D972B', '#267417','#0E4F02'];
+theme['yellow'] = ['#FFFFFF', '#FEFDF2', '#FFFCD6','#FFF9B1','#FFF479', '#FFEE34', '#FFEA00','#FFEA00'];
+theme['dark'] = ['#FFFFFF', '#DADADA', '#B6B6B6','#949494','#676767', '#484848', '#0D0D0D','#000000'];
 var stateData = {};
 var result = [];
 var count = 2;
@@ -65,7 +70,7 @@ function plotData(position) {
 	        series: {
 	            regions: [{
 	              values: stateData,
-	              scale: ['#FFFFFF', '#C8EEFF', '#C8EEEE','#0071A4'],
+	              scale: theme['green'],
 	              normalizeFunction: 'polynomial'
 	            }]
 	          },
@@ -82,6 +87,7 @@ function getCSVData() {
 	$.get(csv_file, function(data) {
         result = $.csv.toArrays(data);
         plotData(1);
+        drawSeries(theme['green']);
         count = result[0].length;
         $(".noUiSlider").noUiSlider({
             range: [1, count-1]
@@ -100,6 +106,11 @@ function getCSVData() {
 var sliderPlayTime = null; 
 var counterPlay = 1;
 
+function drawSeries(theme) {
+	$.each( theme, function( key, value ) {
+		$(".scale").append("<span class='scale-band' style='background: " + value + "'></span>");
+	});
+}
 $(document).ready(function() {
 	getCSVData();
 	$('span.play a').click(function(){
@@ -123,7 +134,6 @@ $(document).ready(function() {
 
 function slidePlay() {
 	if(counterPlay < count && sliderPlayTime) {
-		console.log(counterPlay);
 		plotData(counterPlay);
 		$(".noUiSlider").val(counterPlay);
 		counterPlay ++;
