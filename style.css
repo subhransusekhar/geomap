@@ -1,7 +1,52 @@
 @CHARSET "ISO-8859-1";
-body{
+html, body{
 	background: #505050;
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+.clear {
+	clear: both;
+}
+.control {
+	position: fixed;
+	bottom: 50px;
+	left: 5px;
 }
 .legend{
 	color: #FFF;
+}
+.control-buttons span a{
+	padding: 5px;
+}
+.control-buttons .play.white a{
+	background: url("images/play_white.png") left top no-repeat;
+	width: 16px;
+	height: 18px;
+	text-indent: -999px;
+	outline: 0;
+	display: block;
+	float: left;
+	cursor: pointer;
+}
+.control-buttons .pause.white a{
+  background: url("images/pause_white.png") left top no-repeat;
+  width: 16px;
+  height: 18px;
+  text-indent: -999px;
+  outline: 0;
+  display: block;
+  float: left;
+  cursor: pointer;
+}
+.control-buttons .reset.white a{
+  background: url("images/stop_white.png") left top no-repeat;
+  width: 16px;
+  height: 18px;
+  text-indent: -999px;
+  outline: 0;
+  display: block;
+  float: left;
+  cursor: pointer;
 }
